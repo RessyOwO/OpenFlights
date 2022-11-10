@@ -1,5 +1,6 @@
 #include "airports.h"
 #include <fstream>
+#include <iostream>
 using namespace std;
 vector<string> split(string str, char del) {
     vector<string> ans;
@@ -7,11 +8,14 @@ vector<string> split(string str, char del) {
     for (int i = 0; i < (int)str.size(); i++) {
         if (str[i] != del) {
             temp += str[i];
+            //std::cout << temp << std::endl;
         } else {
             ans.push_back(temp);
             temp = "";
         }
     }
+    //td::cout << temp << std::endl;
+    ans.push_back(temp);
     return ans;
 
 }
