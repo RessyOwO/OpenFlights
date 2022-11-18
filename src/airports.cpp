@@ -1,7 +1,14 @@
 #include "airports.h"
 #include <fstream>
 #include <iostream>
+#include <cmath>
 using namespace std;
+
+//This function is not finished
+double AirPorts::getDistance(string airport1,string airport2) const{
+    return 0;
+}
+
 vector<string> split(string str, char del) {
     vector<string> ans;
     string temp = "";
@@ -31,4 +38,23 @@ AirPorts::AirPorts(const std::string& filename)
         //dict[s].push_back(word);
       }
     }
+}
+
+double AirPorts::latitude(string airport) const{
+    auto it = airports.find(airport);
+    if(it == airports.end()){
+        cout<<"The airport ["<<airport<<"] does not exist"<<endl;
+        return 0;
+    }
+    return it->second.first;
+}
+
+double AirPorts::longitude(string airport) const{
+    auto it = airports.find(airport);
+    if(it == airports.end()){
+        cout<<"The airport ["<<airport<<"] does not exist"<<endl;
+        return 0;
+    }
+    return it->second.second;
+
 }
