@@ -14,7 +14,9 @@ class AirPorts {
 public:
     AirPorts(const std::string& filename);
 
-    Airports(string IATA,double lat,double lon);
+    AirPorts();
+
+    void addAirPorts(string IATA,double lat,double lon);
 
     double getDistance(string airport1,string airport2) const;
 private:

@@ -4,7 +4,9 @@
 #include <cmath>
 using namespace std;
 
-//This function is not finished
+//This function calculates the distance between two airports
+//@param 2 airports to be calculated
+//@return the distance(km)
 double AirPorts::getDistance(string airport1,string airport2) const{
     int R = 6371;
     double lat1 = getLatitude(airport1);
@@ -19,9 +21,14 @@ double AirPorts::getDistance(string airport1,string airport2) const{
     return R*c;
 }
 
-AirPorts::AirPorts(string IATA,double lat,double lon){
-    pair<double, double>(lat,lon);
+//Helper function for catch2
+void AirPorts::addAirPorts(string IATA,double lat,double lon){
+    pair<double, double> l(lat,lon);
+    airports.insert({IATA,l});
 }
+
+//Helper constructor for catch2
+AirPorts::AirPorts(){}
 
 vector<string> split(string str, char del) {
     vector<string> ans;
