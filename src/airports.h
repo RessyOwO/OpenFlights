@@ -18,7 +18,7 @@ public:
 
     void addAirports(string IATA,double lat,double lon);
 
-    double getDistance(string airport1,string airport2) const;
+    double calculateDistance(string airport1,string airport2) const;
 protected:
     // key is the airport id, value is latitude and longitude.
     unordered_map<string,pair<double, double>> airports;
@@ -32,8 +32,15 @@ protected:
 
 class Airports::Routes{
 private:
-
+    map<pair<string,string>,double> route;
 public:
+    Routes();
 
+    Routes(string filename);
+
+    void insert(string airport1,string airport2,double distance);
+
+    double getDistance(string airport1,string airport2);
+
+    bool find(string airport1,string airport2);
 };
-

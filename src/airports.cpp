@@ -7,7 +7,7 @@ using namespace std;
 //This function calculates the distance between two airports
 //@param 2 airports to be calculated
 //@return the distance(km)
-double Airports::getDistance(string airport1,string airport2) const{
+double Airports::calculateDistance(string airport1,string airport2) const{
     int R = 6371;
     double lat1 = getLatitude(airport1);
     double lat2 = getLatitude(airport2);
