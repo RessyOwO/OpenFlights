@@ -7,6 +7,10 @@
 #include <cassert>
 #include <fstream>
 
+using std::string;
+using std::vector;
+
+typedef std::vector<std::vector<std::string> > V2D; 
 /**
  * Takes a filename and reads in all the text from the file
  * Newline characters are also just characters in ASCII
@@ -41,3 +45,5 @@ std::string Trim(const std::string & str);
  * @return The number of substrings created
  */
 int SplitString(const std::string & str1, char sep, std::vector<std::string> &fields);
+
+V2D file_to_V2D(const std::string & filename);

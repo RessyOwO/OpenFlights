@@ -1,4 +1,5 @@
 #include "airports.h"
+#include "utils.h"
 #include <fstream>
 #include <iostream>
 #include <cmath>
@@ -30,37 +31,6 @@ void Airports::addAirports(string IATA,double lat,double lon){
 //Helper constructor for catch2
 Airports::Airports(){}
 
-vector<string> split(string str, char del) {
-    vector<string> ans;
-    string temp = "";
-    for (int i = 0; i < (int)str.size(); i++) {
-        if (str[i] != del) {
-            temp += str[i];
-            //std::cout << temp << std::endl;
-        } else {
-            ans.push_back(temp);
-            temp = "";
-        }
-    }
-    //td::cout << temp << std::endl;
-    ans.push_back(temp);
-    return ans;
-
-}
-Airports::Airports(const std::string& filename)
-{
-    /* Your code goes here! */
-    ifstream wordsFile(filename);
-    string word;
-    if (wordsFile.is_open()) {
-      while (getline(wordsFile, word)) {
-        string s = word;
-        //sort(s.begin(), s.end());
-        //dict[s].push_back(word);
-      }
-    }
-}
-
 //This function returns the latitude
 //@param airport
 //@return the latitude of the airport
@@ -91,4 +61,53 @@ double Airports::getLongitude(string airport) const{
 //@return radians
 double Airports::deg2rad(double deg) const{
     return deg*(M_PI/180);
+}
+
+//The constructor for Airports class
+//@param the file which contains all airports
+Airports::Airports(const string& filename){
+    V2D airportVec = file_to_V2D(filename);
+    for(vector<string> it : airportVec){
+        addAirports(it[1],stod(it[2]),stod(it[3]));
+    }
+}
+
+//The constructor for Routes class
+//@param the file which contains all routes
+Routes::Routes(Airports airport,const string& filename){
+    V2D routeVec = file_to_V2D(filename);
+    for(vector<string> it : routeVec){
+        double distance = airport.calculateDistance(it[1],it[2]);
+        insert(it[1],it[2],distance);
+    }
+}
+
+//This function inserts two airports and their distances into the route
+//@airports' IATA and its distances
+//@None
+void Routes::insert(string airport1,string airport2,double distance){
+    pair<string,string> p(airport1,airport2);
+    route.insert({p,distance});
+}
+
+//This function gets the distance between two airports
+//@param airports' IATA
+//@return distance if existed, -1 if not
+double Routes::getDistance(string airport1,string airport2){
+    pair<string,string> p(airport1,airport2);
+    auto it = route.find(p);
+    if(it == route.end())
+        return -1;
+    return it->second;
+}
+
+//This function returns if a route bewteen two distance exists
+//@param airports' IATA
+//@return true if exists, false if not
+bool Routes::find(string airport1,string airport2){
+    pair<string,string> p(airport1,airport2);
+    auto it = route.find(p);
+    if(it == route.end())
+        return false;
+    return true;
 }
