@@ -39,3 +39,22 @@ int SplitString(const std::string & str1, char sep, std::vector<std::string> &fi
     fields.push_back(str);
     return fields.size();
 }
+
+V2D file_to_V2D(const std::string & filename){
+    // Your code here!
+    string csv = file_to_string(filename);
+    vector<string> temp;
+    V2D sol;
+    SplitString(csv,'\n', temp);
+    for(string  & it : temp){
+        vector<string> line;
+        SplitString(it,',', line);
+        sol.push_back(line);
+    }
+    for(auto & i : sol){
+        for(string & it : i){
+            it = TrimLeft(it);
+        }
+    }
+    return sol;
+}
