@@ -41,7 +41,12 @@ void Graph::insertAllVertices(unordered_map<string,pair<double, double>> airport
     } 
 }
 
-Node * Graph::graphFind(vector<Node*> airport_node, string airport) {
+Node * Graph::graphFind(vector<Node*> airport_node, string dest) {
+    for (size_t i = 0; i < airport_node.size(); i++) {
+        if (airport_node[i]->airport == dest) {
+            return airport_node[i];
+        }
+    }
     return NULL;
 
 }
