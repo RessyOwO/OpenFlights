@@ -15,7 +15,6 @@ struct Node{
 class Graph{
 private:
     vector<Node*> airport_node;
-
 public:
     Graph();
     Graph(unordered_map<string,pair<double, double>> airports, map<pair<string,string>,double> route);

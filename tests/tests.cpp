@@ -40,3 +40,10 @@ TEST_CASE("Routes find/insert working", "[weight=1][part=1]") {
 	route.insert("BBB","CCC",airport.calculateDistance("BBB","CCC"));
   	REQUIRE(route.find("BBB","CCC"));
 }
+
+TEST_CASE("Airports/Routes full doc working", "[weight=1][part=1]") {
+	Airports airport("../data/new_airports.txt");
+	Routes route(airport,"../data/new_routes.txt");
+	CHECK(airport.getAirportNum() == 6072);
+  	CHECK(route.getRouteNum() == 37042);
+}
