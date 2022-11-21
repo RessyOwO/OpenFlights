@@ -7,7 +7,7 @@ using namespace std;
 //This function calculates the distance between two airports
 //@param 2 airports to be calculated
 //@return the distance(km)
-double AirPorts::getDistance(string airport1,string airport2) const{
+double Airports::getDistance(string airport1,string airport2) const{
     int R = 6371;
     double lat1 = getLatitude(airport1);
     double lat2 = getLatitude(airport2);
@@ -22,13 +22,13 @@ double AirPorts::getDistance(string airport1,string airport2) const{
 }
 
 //Helper function for catch2
-void AirPorts::addAirPorts(string IATA,double lat,double lon){
+void Airports::addAirports(string IATA,double lat,double lon){
     pair<double, double> l(lat,lon);
     airports.insert({IATA,l});
 }
 
 //Helper constructor for catch2
-AirPorts::AirPorts(){}
+Airports::Airports(){}
 
 vector<string> split(string str, char del) {
     vector<string> ans;
@@ -47,7 +47,7 @@ vector<string> split(string str, char del) {
     return ans;
 
 }
-AirPorts::AirPorts(const std::string& filename)
+Airports::Airports(const std::string& filename)
 {
     /* Your code goes here! */
     ifstream wordsFile(filename);
@@ -64,7 +64,7 @@ AirPorts::AirPorts(const std::string& filename)
 //This function returns the latitude
 //@param airport
 //@return the latitude of the airport
-double AirPorts::getLatitude(string airport) const{
+double Airports::getLatitude(string airport) const{
     auto it = airports.find(airport);
     if(it == airports.end()){
         cout<<"The airport ["<<airport<<"] does not exist"<<endl;
@@ -76,7 +76,7 @@ double AirPorts::getLatitude(string airport) const{
 //This function returns the longitude
 //@param airport
 //@return the longitude of the airport
-double AirPorts::getLongitude(string airport) const{
+double Airports::getLongitude(string airport) const{
     auto it = airports.find(airport);
     if(it == airports.end()){
         cout<<"The airport ["<<airport<<"] does not exist"<<endl;
@@ -89,6 +89,6 @@ double AirPorts::getLongitude(string airport) const{
 //This function turns degrees into radians
 //@param degrees
 //@return radians
-double AirPorts::deg2rad(double deg) const{
+double Airports::deg2rad(double deg) const{
     return deg*(M_PI/180);
 }
