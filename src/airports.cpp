@@ -37,7 +37,7 @@ Airports::Airports(){}
 double Airports::getLatitude(string airport) const{
     auto it = airports.find(airport);
     if(it == airports.end()){
-        cout<<"The airport ["<<airport<<"] does not exist"<<endl;
+        cout<<"ERROR"<<endl;
         return 0;
     }
     return it->second.first;
@@ -49,7 +49,6 @@ double Airports::getLatitude(string airport) const{
 double Airports::getLongitude(string airport) const{
     auto it = airports.find(airport);
     if(it == airports.end()){
-        cout<<"The airport ["<<airport<<"] does not exist"<<endl;
         return 0;
     }
     return it->second.second;
@@ -77,8 +76,10 @@ Airports::Airports(const string& filename){
 Routes::Routes(Airports airport,const string& filename){
     V2D routeVec = file_to_V2D(filename);
     for(vector<string> it : routeVec){
-        double distance = airport.calculateDistance(it[1],it[2]);
-        insert(it[1],it[2],distance);
+        if(airport.find(it[1]) && airport.find(it[2])){
+            double distance = airport.calculateDistance(it[1],it[2]);
+            insert(it[1],it[2],distance);
+        }
     }
 }
 
@@ -103,11 +104,34 @@ double Routes::getDistance(string airport1,string airport2){
 
 //This function returns if a route bewteen two distance exists
 //@param airports' IATA
-//@return true if exists, false if not
+//@return true if exists,false if not
 bool Routes::find(string airport1,string airport2){
     pair<string,string> p(airport1,airport2);
     auto it = route.find(p);
     if(it == route.end())
         return false;
     return true;
+}
+
+//This function gets the number of airports
+//@param none
+//@return number of airports
+int Airports::getAirportNum(){
+    return airports.size();
+}
+
+//This function gets the number of routes
+//@param none
+//@return number of routes
+int Routes::getRouteNum(){
+    return route.size();
+}
+
+//This function checks if a airport exists in the current class
+//@param airport's IATA
+//@return true if exists, false if not
+bool Airports::find(string airport){
+    if(airports.find(airport) != airports.end())
+        return true;
+    return false;
 }

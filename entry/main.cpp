@@ -4,6 +4,7 @@
 #include "airports.cpp"
 using namespace std;
 int main() {
-  
-  return 0;
+	//Airports airport("../data/new_airports.txt");
+	//Routes route(airport,"../data/new_routes.txt");
+  	return 0;
 }

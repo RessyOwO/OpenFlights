@@ -1,4 +1,3 @@
-,Source airport,Destination airport
 0,AER,KZN
 1,ASF,KZN
 2,ASF,MRV
