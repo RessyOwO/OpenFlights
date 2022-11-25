@@ -18,16 +18,13 @@ Graph::Graph(unordered_map<string,pair<double, double>> airports, map<pair<strin
 
 }
 Graph::~Graph() {
-    // for (size_t i = 0; i < airport_node.size(); i++) {
-    //     delete airport_node[i];
-    //     airport_node[i] = NULL;
-    // }
-    // delete airport_node;
-    // airport_node = NULL;
     airport_node.clear();
     airport_node.shrink_to_fit();
 }
 
+vector<Node*> Graph::getAirportNode() {
+    return airport_node;
+}
 // void Graph::insertVertex(int v, Node* airport) {
 //     airport_node[v] = airport;
 // }

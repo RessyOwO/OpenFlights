@@ -34,6 +34,8 @@ public:
     int getAirportNum();
 
     bool find(string airport);
+
+    unordered_map<string,pair<double, double>> getAirportsMap();
 };
 
 class Routes{
@@ -50,4 +52,6 @@ public:
     bool find(string airport1,string airport2);
 
     int getRouteNum();
+
+    map<pair<string,string>,double> getRoute();
 };

@@ -24,4 +24,6 @@ public:
     void insertAllVertices(unordered_map<string,pair<double, double>> airports);
     void insertAllEdges(map<pair<string,string>,double> route);
     Node * graphFind(vector<Node*> airport_node, string dest);
+
+    vector<Node*> getAirportNode();
 };

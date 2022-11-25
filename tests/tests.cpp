@@ -47,3 +47,26 @@ TEST_CASE("Airports/Routes full doc working", "[weight=1][part=1]") {
 	CHECK(airport.getAirportNum() == 6072);
   	CHECK(route.getRouteNum() == 37042);
 }
+
+TEST_CASE("Graph constructor working", "[weight=1][part=1]") {
+	Airports airport("../tests/airport_test1.txt");
+	Routes route(airport,"../tests/route_test1.txt");
+	Graph graph(airport.getAirportsMap(), route.getRoute());
+	CHECK(graph.getAirportNode().size() == 5);
+	CHECK(graph.getAirportNode()[0]->airport == "EEE");
+	CHECK(graph.getAirportNode()[1]->airport == "CCC");
+	CHECK(graph.getAirportNode()[2]->airport == "DDD");
+	CHECK(graph.getAirportNode()[3]->airport == "BBB");
+	CHECK(graph.getAirportNode()[4]->airport == "AAA");
+	cout << graph.getAirportNode()[1]->neighbors[0]->airport << endl;
+	cout << graph.getAirportNode()[1]->neighbors[0]->neighbors.size() << endl;
+
+	// cout << graph.getAirportNode()[2]->airport << endl;
+	// cout << graph.getAirportNode()[3]->airport << endl;
+	// cout << graph.getAirportNode()[4]->airport << endl;
+  	CHECK(graph.getAirportNode()[0]->neighbors.size() == 0);
+	CHECK(graph.getAirportNode()[1]->neighbors.size() == 1);
+	CHECK(graph.getAirportNode()[2]->neighbors.size() == 0);
+	CHECK(graph.getAirportNode()[3]->neighbors.size() == 1);
+	CHECK(graph.getAirportNode()[4]->neighbors.size() == 4);
+}

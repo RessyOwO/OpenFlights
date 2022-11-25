@@ -28,6 +28,10 @@ void Airports::addAirports(string IATA,double lat,double lon){
     airports.insert({IATA,l});
 }
 
+unordered_map<string,pair<double, double>> Airports::getAirportsMap() {
+    return airports;
+}
+
 //Helper constructor for catch2
 Airports::Airports(){}
 
@@ -134,4 +138,8 @@ bool Airports::find(string airport){
     if(airports.find(airport) != airports.end())
         return true;
     return false;
+}
+
+map<pair<string,string>,double> Routes::getRoute() {
+    return route;
 }
