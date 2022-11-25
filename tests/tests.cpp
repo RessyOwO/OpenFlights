@@ -58,9 +58,8 @@ TEST_CASE("Graph constructor working", "[weight=1][part=1]") {
 	CHECK(graph.getAirportNode()[2]->airport == "DDD");
 	CHECK(graph.getAirportNode()[3]->airport == "BBB");
 	CHECK(graph.getAirportNode()[4]->airport == "AAA");
-	cout << graph.getAirportNode()[1]->neighbors[0]->airport << endl;
-	cout << graph.getAirportNode()[1]->neighbors[0]->neighbors.size() << endl;
-
+	// cout << graph.getAirportNode()[1]->neighbors[0]->airport << endl;
+	// cout << graph.getAirportNode()[1]->neighbors[0]->neighbors.size() << endl;
 	// cout << graph.getAirportNode()[2]->airport << endl;
 	// cout << graph.getAirportNode()[3]->airport << endl;
 	// cout << graph.getAirportNode()[4]->airport << endl;
