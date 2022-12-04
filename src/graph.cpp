@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cmath>
 #include <algorithm>
+#include <queue>
 using namespace std;
 
 
@@ -18,12 +19,12 @@ Graph::Graph(unordered_map<string,pair<double, double>> airports, map<pair<strin
 
 }
 Graph::~Graph() {
-    airport_node.clear();
-    airport_node.shrink_to_fit();
+    airport_nodes_.clear();
+    airport_nodes_.shrink_to_fit();
 }
 
 vector<Node*> Graph::getAirportNode() {
-    return airport_node;
+    return airport_nodes_;
 }
 // void Graph::insertVertex(int v, Node* airport) {
 //     airport_node[v] = airport;
@@ -34,7 +35,7 @@ void Graph::insertAllVertices(unordered_map<string,pair<double, double>> airport
         Node * n = new Node();
         n->airport = k.first;
         n->neighbors = vector<Node*>();
-        airport_node.push_back(n); 
+        airport_nodes_.push_back(n); 
     } 
 }
 
@@ -50,10 +51,43 @@ Node * Graph::graphFind(vector<Node*> airport_node, string dest) {
 
 void Graph::insertAllEdges(map<pair<string,string>,double> route) {
     for (const auto & r : route) {
-        auto key = graphFind(airport_node, r.first.first);
-        auto val = graphFind(airport_node, r.first.second);
+        auto key = graphFind(airport_nodes_, r.first.first);
+        auto val = graphFind(airport_nodes_, r.first.second);
         key->neighbors.push_back(val);
     }
+
+}
+
+
+vector<string> Graph::BFS(Node* source, Node* dest) {
+    map<Node*, bool> visited;
+    for (size_t i = 0; i < airport_nodes_.size(); i++) {
+        visited.insert(pair<Node*, bool>(airport_nodes_[i], false));
+    }
+    vector<string> result;
+
+    queue<Node*> queue;
+    queue.push(source);
+    Node* curr = source;
+    visited.at(source) = true;
+    
+    while (!queue.empty()) {
+        curr = queue.front();
+        if(curr == dest){
+            result.push_back(curr->airport);
+            break;
+        }
+        result.push_back(curr->airport);
+        for (auto & it : curr->neighbors){
+            if (visited.at(it) == false) { 
+                queue.push(it);  
+                visited.at(it) = true;
+            }
+        }
+        queue.pop();
+    }
+    if(curr != dest) return vector<string>();
+    return result;
 
 }
 

@@ -69,3 +69,29 @@ TEST_CASE("Graph constructor working", "[weight=1][part=1]") {
 	CHECK(graph.getAirportNode()[3]->neighbors.size() == 1);
 	CHECK(graph.getAirportNode()[4]->neighbors.size() == 4);
 }
+
+TEST_CASE("BFS working", "[weight=1][part=1]") {
+	Airports airport("../tests/airport_test1.txt");
+	Routes route(airport,"../tests/route_test1.txt");
+	Graph graph(airport.getAirportsMap(), route.getRoute());
+
+	Node* EEE = graph.getAirportNode()[0];
+	Node* CCC = graph.getAirportNode()[1];
+	Node* DDD = graph.getAirportNode()[2];
+	Node* BBB = graph.getAirportNode()[3];
+	Node* AAA = graph.getAirportNode()[4];
+
+	// cout << graph.getAirportNode()[0]->airport << endl;
+	// cout << graph.getAirportNode()[1]->airport << endl;
+	// cout << graph.getAirportNode()[2]->airport << endl;
+	// cout << graph.getAirportNode()[3]->airport << endl;
+	// cout << graph.getAirportNode()[4]->airport << endl;
+
+	vector<string> path = graph.BFS(AAA, CCC);
+	cout << "printing paths..." << endl;
+	for (size_t i = 0; i < path.size(); i++) {
+		cout << path[i] << endl;
+	}
+
+
+}
