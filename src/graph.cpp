@@ -73,16 +73,8 @@ map<Node*, Node*> Graph::bfsHelper(Node* source) {
     while (!queue.empty()) {
         curr = queue.front();
         queue.pop();
-        // if (curr == dest) {
-        //     result.push_back(curr->airport);
-        //     break;
-        // }
-        // cout << "pushing " << curr->airport << " to the result..." << endl;
-        // result.push_back(curr->airport);
-        // cout << "loop " << endl;
         for (auto & it : curr->neighbors) {
             if (visited.at(it) == false) {
-                // cout << "pushing " << it->airport << " to the queue..." << endl; 
                 queue.push(it);  
                 visited.at(it) = true;
                 result[it] = curr;
@@ -90,9 +82,6 @@ map<Node*, Node*> Graph::bfsHelper(Node* source) {
         }
     }
 
-    for (auto it = result.begin(); it != result.end(); ++it) {
-        cout << it->first->airport << " " << it->second->airport << endl;
-    }
     return result;
 
 }
@@ -100,7 +89,6 @@ map<Node*, Node*> Graph::bfsHelper(Node* source) {
 vector<string> Graph::bfsFindPath(map<Node*, Node*> m, Node* source, Node* dest) {
     vector<string> path;
     for (auto it = dest; it != NULL; it = m[it]) {
-        cout << it->airport << endl;
         path.push_back(it->airport);
     }
     reverse(path.begin(), path.end());
