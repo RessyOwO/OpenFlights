@@ -93,6 +93,17 @@ vector<string> Graph::bfsFindPath(map<Node*, Node*> m, Node* source, Node* dest)
     return vector<string>();
 }
 
-vector<string> Graph::BFS(Node* source, Node* dest) {
+vector<string> Graph::BFS(string start, string end) {
+    Node * source = getNode(start);
+    Node * dest = getNode(end);
     return bfsFindPath(bfsHelper(source), source, dest);
+}
+
+Node* Graph::getNode(string airportName) {
+    for (size_t i = 0; i < airport_nodes_.size(); i++) {
+        if (airport_nodes_[i]->airport == airportName) {
+            return airport_nodes_[i];
+        }
+    }
+    return NULL;
 }

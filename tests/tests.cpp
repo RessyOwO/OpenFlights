@@ -75,24 +75,12 @@ TEST_CASE("BFS working", "[weight=1][part=1]") {
 	Routes route(airport,"../tests/route_test2.txt");
 	Graph graph(airport.getAirportsMap(), route.getRoute());
 
-	Node* EEE = graph.getAirportNode()[0];
-	Node* CCC = graph.getAirportNode()[1];
-	Node* DDD = graph.getAirportNode()[2];
-	Node* BBB = graph.getAirportNode()[3];
-	Node* AAA = graph.getAirportNode()[4];
-
-	// cout << graph.getAirportNode()[0]->airport << endl;
-	// cout << graph.getAirportNode()[1]->airport << endl;
-	// cout << graph.getAirportNode()[2]->airport << endl;
-	// cout << graph.getAirportNode()[3]->airport << endl;
-	// cout << graph.getAirportNode()[4]->airport << endl;
-
-	vector<string> path = graph.BFS(AAA, EEE);
+	vector<string> path = graph.BFS("AAA", "EEE");
 	CHECK(path.size() == 3);
 	CHECK(path[0] == "AAA");
 	CHECK(path[1] == "CCC");
 	CHECK(path[2] == "EEE");
-	vector<string> path2 = graph.BFS(BBB, EEE);
+	vector<string> path2 = graph.BFS("BBB", "EEE");
 	CHECK(path2.size() == 3);
 	CHECK(path2[0] == "BBB");
 	CHECK(path2[1] == "DDD");
@@ -102,18 +90,11 @@ TEST_CASE("BFS working", "[weight=1][part=1]") {
 	Routes route2(airport,"../tests/route_test1.txt");
 	Graph graph2(airport2.getAirportsMap(), route2.getRoute());
 
-	Node* EEE2 = graph2.getAirportNode()[0];
-	Node* CCC2 = graph2.getAirportNode()[1];
-	Node* DDD2 = graph2.getAirportNode()[2];
-	Node* BBB2 = graph2.getAirportNode()[3];
-	Node* AAA2 = graph2.getAirportNode()[4];
-
-	vector<string> p1 = graph2.BFS(AAA2, EEE2);
+	vector<string> p1 = graph2.BFS("AAA", "EEE");
 	CHECK(p1.size() == 2);
 	CHECK(p1[0] == "AAA");
 	CHECK(p1[1] == "EEE");
-	vector<string> p2 = graph2.BFS(BBB2, EEE2);
+	vector<string> p2 = graph2.BFS("BBB", "EEE");
 	CHECK(p2.size() == 0);
-
-
+	
 }
