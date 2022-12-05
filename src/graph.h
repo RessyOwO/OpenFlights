@@ -28,5 +28,7 @@ public:
 
     vector<Node*> getAirportNode();
     vector<string> BFS(Node* source, Node* dest);
+    map<Node*, Node*> bfsHelper(Node* source);
+    vector<string> bfsFindPath(map<Node*, Node*> m, Node* source, Node* dest);
 
 };

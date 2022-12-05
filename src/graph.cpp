@@ -59,35 +59,55 @@ void Graph::insertAllEdges(map<pair<string,string>,double> route) {
 }
 
 
-vector<string> Graph::BFS(Node* source, Node* dest) {
+map<Node*, Node*> Graph::bfsHelper(Node* source) {
     map<Node*, bool> visited;
     for (size_t i = 0; i < airport_nodes_.size(); i++) {
         visited.insert(pair<Node*, bool>(airport_nodes_[i], false));
     }
-    vector<string> result;
+    map<Node*, Node*> result;
 
     queue<Node*> queue;
     queue.push(source);
     Node* curr = source;
     visited.at(source) = true;
-    
     while (!queue.empty()) {
         curr = queue.front();
-        if(curr == dest){
-            result.push_back(curr->airport);
-            break;
-        }
-        result.push_back(curr->airport);
-        for (auto & it : curr->neighbors){
-            if (visited.at(it) == false) { 
+        queue.pop();
+        // if (curr == dest) {
+        //     result.push_back(curr->airport);
+        //     break;
+        // }
+        // cout << "pushing " << curr->airport << " to the result..." << endl;
+        // result.push_back(curr->airport);
+        // cout << "loop " << endl;
+        for (auto & it : curr->neighbors) {
+            if (visited.at(it) == false) {
+                // cout << "pushing " << it->airport << " to the queue..." << endl; 
                 queue.push(it);  
                 visited.at(it) = true;
+                result[it] = curr;
             }
         }
-        queue.pop();
     }
-    if(curr != dest) return vector<string>();
+
+    for (auto it = result.begin(); it != result.end(); ++it) {
+        cout << it->first->airport << " " << it->second->airport << endl;
+    }
     return result;
 
 }
 
+vector<string> Graph::bfsFindPath(map<Node*, Node*> m, Node* source, Node* dest) {
+    vector<string> path;
+    for (auto it = dest; it != NULL; it = m[it]) {
+        cout << it->airport << endl;
+        path.push_back(it->airport);
+    }
+    reverse(path.begin(), path.end());
+    if (path.at(0) == source->airport) return path;
+    return vector<string>();
+}
+
+vector<string> Graph::BFS(Node* source, Node* dest) {
+    return bfsFindPath(bfsHelper(source), source, dest);
+}
