@@ -107,3 +107,20 @@ Node* Graph::getNode(string airportName) {
     }
     return NULL;
 }
+
+bool Graph::pageRankComparator(Node* a, Node* b) {
+    return a->neighbors.size() > b->neighbors.size();
+}
+
+// returns top "count" airports
+// PageRank algo
+vector<string> Graph::top_airports(int count) {
+    vector<string> to_return;
+    sort(airport_nodes_.begin(), airport_nodes_.end(), pageRankComparator);
+    int bound = count;
+    if ((int)airport_nodes_.size() < bound) bound = airport_nodes_.size();
+    for (size_t i = 0; i < (size_t) bound; i++) {
+        to_return.push_back(airport_nodes_[i]->airport);
+    }
+    return to_return;
+}

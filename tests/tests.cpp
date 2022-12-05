@@ -87,7 +87,7 @@ TEST_CASE("BFS working", "[weight=1][part=1]") {
 	CHECK(path2[2] == "EEE");
 
 	Airports airport2("../tests/airport_test1.txt");
-	Routes route2(airport,"../tests/route_test1.txt");
+	Routes route2(airport2,"../tests/route_test1.txt");
 	Graph graph2(airport2.getAirportsMap(), route2.getRoute());
 
 	vector<string> p1 = graph2.BFS("AAA", "EEE");
@@ -96,5 +96,35 @@ TEST_CASE("BFS working", "[weight=1][part=1]") {
 	CHECK(p1[1] == "EEE");
 	vector<string> p2 = graph2.BFS("BBB", "EEE");
 	CHECK(p2.size() == 0);
+
+}
+
+TEST_CASE("PageRank working", "[weight=1][part=1]") {
+	Airports airport("../tests/airport_test1.txt");
+	Routes route(airport,"../tests/route_test1.txt");
+	Graph graph(airport.getAirportsMap(), route.getRoute());
+
+	vector<string> top1 = graph.top_airports(1);
+	CHECK(top1.size() == 1);
+	CHECK(top1[0] == "AAA");
+
+	Airports airport2("../tests/airport_test1.txt");
+	Routes route2(airport2,"../tests/route_test2.txt");
+	Graph graph2(airport2.getAirportsMap(), route2.getRoute());
+	vector<string> top22 = graph2.top_airports(2);
+	CHECK(top22.size() == 2);
+	CHECK(top22[0] == "AAA");
+
+	Airports airport3("/workspaces/cs225/OpenFlights/data/new_airports.txt");
+	Routes route3(airport3,"/workspaces/cs225/OpenFlights/data/new_routes.txt");
+	Graph graph3(airport3.getAirportsMap(), route3.getRoute());
+	vector<Node*> airports = graph3.getAirportNode();
+	CHECK(airports.size() == 6072);
+
+	vector<string> top310= graph3.top_airports(10);
+	CHECK(top310.size() == 10);
+	for (size_t i = 0; i < 10; i++) {
+		cout << top310[i] << endl;
+	}
 	
 }

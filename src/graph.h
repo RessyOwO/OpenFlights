@@ -33,4 +33,8 @@ public:
 
     Node* getNode(string airportName); // inputs a string, returns a node
 
+    vector<string> top_airports(int count);
+
+    static bool pageRankComparator(Node* a, Node* b);
+
 };
