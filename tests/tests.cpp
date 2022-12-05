@@ -123,8 +123,15 @@ TEST_CASE("PageRank working", "[weight=1][part=1]") {
 
 	vector<string> top310= graph3.top_airports(10);
 	CHECK(top310.size() == 10);
-	for (size_t i = 0; i < 10; i++) {
-		cout << top310[i] << endl;
-	}
+	CHECK(top310[0] == "FRA");
+	CHECK(top310[1] == "CDG");
+	CHECK(top310[2] == "AMS");
+	CHECK(top310[3] == "IST");
+	CHECK(top310[4] == "ATL");
+	CHECK(top310[5] == "ORD");
+	CHECK(top310[6] == "PEK");
+	CHECK(top310[7] == "MUC");
+	CHECK(top310[8] == "DME");
+	CHECK(top310[9] == "DFW");
 	
 }

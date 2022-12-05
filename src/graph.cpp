@@ -85,7 +85,7 @@ map<Node*, Node*> Graph::bfsHelper(Node* source) {
 
 vector<string> Graph::bfsFindPath(map<Node*, Node*> m, Node* source, Node* dest) {
     vector<string> path;
-    for (auto it = dest; it != NULL; it = m[it]) {
+    for (auto & it = dest; it != NULL; it = m[it]) {
         path.push_back(it->airport);
     }
     reverse(path.begin(), path.end());
