@@ -26,9 +26,6 @@ Graph::~Graph() {
 vector<Node*> Graph::getAirportNode() {
     return airport_nodes_;
 }
-// void Graph::insertVertex(int v, Node* airport) {
-//     airport_node[v] = airport;
-// }
 
 void Graph::insertAllVertices(unordered_map<string,pair<double, double>> airports) {
     for (const auto & k : airports) {
