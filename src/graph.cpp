@@ -5,6 +5,7 @@
 #include <cmath>
 #include <algorithm>
 #include <queue>
+#include <stack>
 using namespace std;
 
 /**
@@ -55,6 +56,8 @@ void Graph::insertAllVertices(unordered_map<string,pair<double, double>> airport
         Node * n = new Node();
         n->airport = k.first;
         n->neighbors = vector<Node*>();
+        n->latitude = k.second.first;
+        n->longitude = k.second.second;
         airport_nodes_.push_back(n); 
     } 
 }
@@ -199,4 +202,88 @@ vector<string> Graph::top_airports(int count) {
         to_return.push_back(airport_nodes_[i]->airport);
     }
     return to_return;
+}
+
+double Graph::calculateDistance(Node* airport1,Node* airport2) const{
+    int R = 6371;
+    double lat1 = airport1->latitude;
+    double lat2 = airport2->latitude;
+    double long1 = airport1->longitude;
+    double long2 = airport2->longitude;
+    double dLat = deg2rad(lat1 - lat2);
+    double dLong = deg2rad(long1 - long2);
+    double a = cos(deg2rad(lat1)) * cos(deg2rad(lat2)) * sin(dLong/2) * sin(dLong/2);
+    a = a + sin(dLat/2) * sin(dLat/2);
+    double c = 2 * atan(sqrt(a)/sqrt(1-a));
+    return R*c;
+}
+
+//This function turns degrees into radians
+//@param degrees
+//@return radians
+double Graph::deg2rad(double deg) const{
+    return deg*(M_PI/180);
+}
+
+pair<vector<Node*>,double> Graph::dijFind(string start_airport,string dest_airport){
+    vector<Node*> sol;
+
+    double t_distance = 0;
+    unordered_map<Node*,Node*> prev; //curr,curr's parent
+
+    struct cmp {
+        constexpr bool operator()(
+            pair<Node*,double> const& a,
+            pair<Node*,double> const& b)
+            const noexcept
+        {
+            return a.second > b.second;
+        }
+    };
+    //auto cmp = [](pair<Node*,double> a, pair<Node*,double> b){return a.second > b.second;};
+    priority_queue<pair<Node*,double>,vector<pair<Node*,double>>,cmp> pq;
+    set<Node*> visited;
+
+    Node* start = getNode(start_airport);
+    Node* dest = getNode(dest_airport);
+    start->distance = 0;
+
+    pq.push({start,0});
+    while(pq.top().first != dest){
+        Node* curr = pq.top().first;
+        pq.pop();
+        for(Node* it : curr->neighbors){
+            if(visited.find(it) != visited.end())
+                continue;
+            double d = calculateDistance(curr,it);
+            if(d < it->distance){
+                prev.insert_or_assign(it,curr);
+                pq.push({it,d + curr->distance});
+                it->distance = d + curr->distance;
+            }
+        }
+        visited.insert(curr);
+    }
+    Node* curr = dest;
+    stack<Node*> st;
+    st.push(curr);
+    while(curr != start){
+        st.push(prev[curr]);
+        curr = prev[curr];
+    }
+    curr = prev[curr];
+    while(!st.empty()){
+        sol.push_back(st.top());
+        st.pop();
+    }
+    t_distance = dest->distance;
+
+    clearDistance();
+
+    return {sol,t_distance};
+}
+
+void Graph::clearDistance(){
+    for(Node* it : airport_nodes_)
+        it->distance = 100000;
 }
