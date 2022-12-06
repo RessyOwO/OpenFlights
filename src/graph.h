@@ -16,25 +16,21 @@ class Graph{
 private:
     vector<Node*> airport_nodes_;
     vector<vector<int>> adjacency_matrix_;
+    void insertAllVertices(unordered_map<string,pair<double, double>> airports);
+    void insertAllEdges(map<pair<string,string>,double> route);
+    Node* getNode(string airportName); 
+    map<Node*, Node*> bfsHelper(Node* source);
+    vector<string> bfsFindPath(map<Node*, Node*> m, Node* source, Node* dest);
+    Node * graphFind(vector<Node*> airport_node, string dest);
+    static bool pageRankComparator(Node* a, Node* b);
 public:
     Graph();
     Graph(unordered_map<string,pair<double, double>> airports, map<pair<string,string>,double> route);
 
     ~Graph();
-    // void insertVertex(int v, Node* airport);
-    void insertAllVertices(unordered_map<string,pair<double, double>> airports);
-    void insertAllEdges(map<pair<string,string>,double> route);
-    Node * graphFind(vector<Node*> airport_node, string dest);
-
-    vector<Node*> getAirportNode();
+    
     vector<string> BFS(string start, string end);
-    map<Node*, Node*> bfsHelper(Node* source);
-    vector<string> bfsFindPath(map<Node*, Node*> m, Node* source, Node* dest);
-
-    Node* getNode(string airportName); // inputs a string, returns a node
-
     vector<string> top_airports(int count);
 
-    static bool pageRankComparator(Node* a, Node* b);
-
+    vector<Node*> getAirportNode(); // for testing
 };
