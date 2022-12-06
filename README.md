@@ -8,13 +8,46 @@ We want to visualize the shortest path (stop wise and distance wise) between two
 
  P.S. We ignored all the airports that does not have IATA codes
 
-## **File Description:**
+## **File Descriptions:**
+
+Below are some brief descriptions of our files. Function descriptions can be found in each individual file.
+
+- airports:
+- graph:
+- utils:
+- main:
+- tests:
+- png:
 
 ## **How to run:**
 
+The program can be ran by using the './main' executable:
+
+```
+make
+./main
+```
+
 ## **Test Description:**
 
+Our tests can be ran with:
+
+```
+make test
+./test
+```
+
+Our tests test the functionality of 
+- constructing airports
+- constructing routes
+- constructing a graph
+- Pagerank algorithm
+- BFS find shortest path
+- Djikstra's algorithm
+
 ## **References:**
+
+
 
 ## **Team Contract:**
 
