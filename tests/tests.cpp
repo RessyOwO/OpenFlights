@@ -16,6 +16,7 @@ TEST_CASE("getDistance working", "[weight=1][part=1]") {
   	double distance = airport.calculateDistance("1","2");
   	REQUIRE(distance > 0);
 }
+ 
 TEST_CASE("Airports constructor working", "[weight=1][part=1]") {
   	Airports airport("../tests/airport_test1.txt");
 
@@ -115,8 +116,8 @@ TEST_CASE("PageRank working", "[weight=1][part=1]") {
 	CHECK(top22.size() == 2);
 	CHECK(top22[0] == "AAA");
 
-	Airports airport3("/workspaces/cs225/OpenFlights/data/new_airports.txt");
-	Routes route3(airport3,"/workspaces/cs225/OpenFlights/data/new_routes.txt");
+	Airports airport3("../data/new_airports.txt");
+	Routes route3(airport3,"../data/new_routes.txt");
 	Graph graph3(airport3.getAirportsMap(), route3.getRoute());
 	vector<Node*> airports = graph3.getAirportNode();
 	CHECK(airports.size() == 6072);
@@ -134,4 +135,63 @@ TEST_CASE("PageRank working", "[weight=1][part=1]") {
 	CHECK(top310[8] == "DME");
 	CHECK(top310[9] == "DFW");
 	
+}
+
+TEST_CASE("Dijkstra_simple", "[weight=1][part=2]"){
+	Airports airport("../tests/airport_testA.txt");
+	Routes route(airport,"../tests/route_testA.txt");
+	Graph graph(airport.getAirportsMap(), route.getRoute());
+
+	SECTION("A to B"){
+		pair<vector<Node*>,double> ans = graph.dijFind("A","B");
+		vector<string> sol;
+		for(Node* it : ans.first){
+			sol.push_back(it->airport);
+		}
+		CHECK(sol[0] == "A");
+		CHECK(sol[1] == "B");
+		CHECK(sol.size() == 2);
+	}
+	SECTION("A to C"){
+		pair<vector<Node*>,double> ans = graph.dijFind("A","C");
+		vector<string> sol;
+		for(Node* it : ans.first){
+			sol.push_back(it->airport);
+		}
+		CHECK(sol[0] == "A");
+		CHECK(sol[1] == "C");
+		CHECK(sol.size() == 2);
+	}
+	SECTION("B to C"){
+		pair<vector<Node*>,double> ans = graph.dijFind("B","C");
+		vector<string> sol;
+		for(Node* it : ans.first){
+			sol.push_back(it->airport);
+		}
+		CHECK(sol[0] == "B");
+		CHECK(sol[1] == "C");
+		CHECK(sol.size() == 2);
+	}
+	SECTION("A to D"){
+		pair<vector<Node*>,double> ans = graph.dijFind("A","D");
+		vector<string> sol;
+		for(Node* it : ans.first){
+			sol.push_back(it->airport);
+		}
+		CHECK(sol[0] == "A");
+		CHECK(sol[1] == "C");
+		CHECK(sol[2] == "D");
+		CHECK(sol.size() == 3);
+	}
+
+	SECTION("E to F"){
+		pair<vector<Node*>,double> ans = graph.dijFind("E","F");
+		vector<string> sol;
+		for(Node* it : ans.first){
+			sol.push_back(it->airport);
+		}
+		CHECK(sol[0] == "E");
+		CHECK(sol[1] == "F");
+		CHECK(sol.size() == 2);
+	}
 }
