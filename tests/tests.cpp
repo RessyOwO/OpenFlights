@@ -122,6 +122,9 @@ TEST_CASE("PageRank working", "[weight=1][part=1]") {
 	vector<Node*> airports = graph3.getAirportNode();
 	CHECK(airports.size() == 6072);
 
+	// vector<string> r = graph3.BFS("AER", "KZN");
+	// cout << r.size() << endl;
+
 	vector<string> top310= graph3.top_airports(10);
 	CHECK(top310.size() == 10);
 	CHECK(top310[0] == "FRA");

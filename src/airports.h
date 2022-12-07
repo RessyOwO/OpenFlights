@@ -17,9 +17,7 @@ private:
     // key is the airport id, value is latitude and longitude.
     unordered_map<string,pair<double, double>> airports;
 
-    double getLatitude(string airport) const;
 
-    double getLongitude(string airport) const;
 
     double deg2rad(double deg) const;
 public:
@@ -30,6 +28,10 @@ public:
     void addAirports(string IATA,double lat,double lon);
 
     double calculateDistance(string airport1,string airport2) const;
+
+    double getLatitude(string airport) const;
+
+    double getLongitude(string airport) const;
 
     int getAirportNum();
 
