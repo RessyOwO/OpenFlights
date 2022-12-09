@@ -13,7 +13,6 @@ int main() {
   	cout<<"Reading from 'new_routes.txt'"<<endl;
   	Routes route(airport,"../data/new_routes.txt");
 	cout<<"Creating the graph"<<endl;
-	cout<<route.getDistance("SVX","NJC")+route.getDistance("NJC","UUA")<<endl;
 	Graph graph(airport.getAirportsMap(), route.getRoute());
   	cout<<"Complete!"<<endl;
   	cout<<"Airports: "<<airport.getAirportNum()<<" Routes: "<<route.getRouteNum()<<endl;
