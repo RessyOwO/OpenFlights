@@ -12,12 +12,12 @@ We want to visualize the shortest path (stop wise and distance wise) between two
 
 Below are some brief descriptions of our files. Function descriptions can be found in each individual file.
 
-- airports:
-- graph:
-- utils:
-- main:
-- tests:
-- png:
+- airports: contains airports class and routes class, along with helper functions
+- graph: contains graph class, pagerank, BFS, dijstra's algorithm
+- utils: utilities
+- main: main function
+- tests: test suites
+- visuals: visualization
 
 ## **How to run:**
 
@@ -47,7 +47,9 @@ Our tests test the functionality of
 
 ## **References:**
 
-
+- [CS225 slides](https://courses.engr.illinois.edu/cs225/fa2022/)
+- [Dijkstra's algorithm wikipedia](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
+- [PageRank wikipedia](https://en.wikipedia.org/wiki/PageRank)
 
 ## **Team Contract:**
 
