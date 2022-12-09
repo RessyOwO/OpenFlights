@@ -21,7 +21,21 @@ Below are some brief descriptions of our files. Function descriptions can be fou
 
 ## **How to run:**
 
-The program can be ran by using the './main' executable:
+In CS225 dev container, in terminal, cd to the folder that you want to store our program in, and do 
+
+```
+git clone https://github.com/RessyOwO/OpenFlights.git
+```
+
+After the cloning is done, cd to /OpenFlights, then do
+
+```
+mkdir build
+cd build
+cmake ..
+```
+
+Now, the program can be ran by using the './main' executable:
 
 ```
 make
