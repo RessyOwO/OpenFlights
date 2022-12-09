@@ -204,6 +204,13 @@ vector<string> Graph::top_airports(int count) {
     return to_return;
 }
 
+/**
+ * @brief This function takes in two airports and calculates the distance between them
+ * 
+ * @param airport1 
+ * @param airport2 
+ * @return the distance of the two airports
+ */
 double Graph::calculateDistance(Node* airport1,Node* airport2) const{
     int R = 6371;
     double lat1 = airport1->latitude;
@@ -218,31 +225,36 @@ double Graph::calculateDistance(Node* airport1,Node* airport2) const{
     return R*c;
 }
 
-//This function turns degrees into radians
-//@param degrees
-//@return radians
+/**
+*@brief This function turns degrees into radians
+*
+*@param degrees
+*@return radians
+*/
 double Graph::deg2rad(double deg) const{
     return deg*(M_PI/180);
 }
 
+/**
+ * @brief This function takes in two airports and returns the shortest
+ *        path with dijkstra's algorithm, if there exists one.
+ * 
+ * @param start_airport 
+ * @param dest_airport 
+ * @return pair<vector<Nodes of airports on the route>,Total distance> 
+ */
 pair<vector<Node*>,double> Graph::dijFind(string start_airport,string dest_airport){
     vector<Node*> sol;
 
     double t_distance = 0;
     unordered_map<Node*,Node*> prev; //curr,curr's parent
 
-    struct cmp {
-        constexpr bool operator()(
-            pair<Node*,double> const& a,
-            pair<Node*,double> const& b)
-            const noexcept
-        {
-            return a.second > b.second;
-        }
-    };
-    //auto cmp = [](pair<Node*,double> a, pair<Node*,double> b){return a.second > b.second;};
-    priority_queue<pair<Node*,double>,vector<pair<Node*,double>>,cmp> pq;
+    auto cmp = [](pair<Node*,double> a, pair<Node*,double> b){return a.second > b.second;};
+    priority_queue<pair<Node*,double>,vector<pair<Node*,double>>,decltype(cmp)> pq(cmp);
     set<Node*> visited;
+
+    if(BFS(start_airport,dest_airport) == vector<string>())
+        return {sol,-1};
 
     Node* start = getNode(start_airport);
     Node* dest = getNode(dest_airport);
@@ -283,6 +295,10 @@ pair<vector<Node*>,double> Graph::dijFind(string start_airport,string dest_airpo
     return {sol,t_distance};
 }
 
+/**
+ * @brief Sets all the distance in airport nodes to default(100000)
+ * 
+ */
 void Graph::clearDistance(){
     for(Node* it : airport_nodes_)
         it->distance = 100000;
