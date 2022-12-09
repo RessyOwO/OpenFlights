@@ -197,4 +197,11 @@ TEST_CASE("Dijkstra_simple", "[weight=1][part=2]"){
 		CHECK(sol[1] == "F");
 		CHECK(sol.size() == 2);
 	}
+	SECTION("Nonexistent routes"){
+		pair<vector<Node*>,double> ans = graph.dijFind("A","E");
+		auto sol_node = ans.first;
+		auto sol_dis = ans.second;
+		CHECK(sol_node.empty());
+		CHECK(sol_dis == -1);
+	}
 }
