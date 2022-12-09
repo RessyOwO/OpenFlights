@@ -38,6 +38,8 @@ public:
     bool find(string airport);
 
     unordered_map<string,pair<double, double>> getAirportsMap();
+
+    void readString(string &start_airport,string &dest_airport);
 };
 
 class Routes{
