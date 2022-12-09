@@ -205,3 +205,36 @@ bool Airports::find(string airport){
 map<pair<string,string>,double> Routes::getRoute() {
     return route;
 }
+
+/**
+ * @brief Reads the input into start_airport and dest_airport
+ * 
+ * @param start_airport 
+ * @param dest_airport 
+ */
+void Airports::readString(string &start_airport,string &dest_airport){
+    bool flag = true;
+    do{
+    cout<<"Type in the starting airport's IATA code"<<endl;
+    cout<<"IATA: ";
+    cin>>start_airport;
+    flag = find(start_airport);
+    if(!flag){
+        cout<<"This airport does not exist"<<endl;
+    }
+    }while(!flag);
+
+    do{
+    cout<<"Type in the destination airport's IATA code"<<endl;
+    cout<<"IATA: ";
+    cin>>dest_airport;
+    flag = find(dest_airport);
+    if(dest_airport == start_airport){
+        cout<<"The starting airport is the same as the destination airport"<<endl;
+        flag = false;
+    }
+    if(!flag){
+        cout<<"This airport does not exist"<<endl;
+    }
+    }while(!flag);
+}

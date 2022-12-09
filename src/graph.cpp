@@ -268,7 +268,7 @@ pair<vector<Node*>,double> Graph::dijFind(string start_airport,string dest_airpo
             if(visited.find(it) != visited.end())
                 continue;
             double d = calculateDistance(curr,it);
-            if(d < it->distance){
+            if(d + curr->distance< it->distance){
                 prev.insert_or_assign(it,curr);
                 pq.push({it,d + curr->distance});
                 it->distance = d + curr->distance;
