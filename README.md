@@ -43,9 +43,7 @@ cd build
 cmake ..
 ```
 > **_IMPORTANT!!_**
- Make sure all .txt files has LF as end of line sequence!!
-
- All IATA codes that you enter should be capitalized!!
+ Make sure all .txt files has LF as end of line sequence and all IATA codes that you enter should be capitalized!!
 
 Now, the program can be ran by using the './main' executable:
 
