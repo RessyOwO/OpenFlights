@@ -12,7 +12,7 @@ int main() {
 	Airports airport("../data/new_airports.txt");
   	cout<<"Reading from 'new_routes.txt'"<<endl;
   	Routes route(airport,"../data/new_routes.txt");
-	cout<<"Creating the graph"<<endl;
+	cout<<"Creating the graph..."<<endl;
 	Graph graph(airport.getAirportsMap(), route.getRoute());
   	cout<<"Complete!"<<endl;
   	cout<<"Airports: "<<airport.getAirportNum()<<" Routes: "<<route.getRouteNum()<<endl;
@@ -35,6 +35,15 @@ int main() {
 						cout<<it<<" ";
 				}
 				cout<<endl;
+				cout<<"Generating visuals..."<<endl;
+				Visual v("../data/new_airports.txt", "../data/new_routes.txt", "../data/map.png");
+				for(size_t i = 1; i < sol.size(); i++) {
+					v.MarkRoute(sol[i - 1], sol[i]);
+				}
+				v.Write("bfs.png");
+				cout<<"A visual representation of the path is generated in your build folder named bfs.png" << endl;
+				cout << "Destination is labeled green, point of departure and layovers are labeled red." << endl;
+				cout<<"Note that bfs only returns one of the many paths with fewest stops, for shortest distance path, please use Dijkstra." << endl;
 			}
 		}else if(a == 2){
 			airport.readString(start_airport,dest_airport);
@@ -49,6 +58,14 @@ int main() {
 				}
 				cout<<endl;
 				cout<<"The total distance traveled is: "<<ans.second<<endl;
+				cout<<"Generating visuals..."<<endl;
+				Visual v("../data/new_airports.txt", "../data/new_routes.txt", "../data/map.png");
+				for(size_t i = 1; i < ans.first.size(); i++) {
+					v.MarkRoute(ans.first[i - 1]->airport, ans.first[i]->airport);
+				}
+				v.Write("dijkstra.png");
+				cout<<"A visual representation of the path is generated in your build folder named dijkstra.png" << endl;
+				cout << "Destination is labeled green, point of departure and layovers are labeled red." << endl;
 			}
 		}else if(a == 3){
 			int count;
@@ -61,6 +78,11 @@ int main() {
 					cout<<it<<" ";
 				}
 			cout<<endl;
+			cout<<"Generating visuals..."<<endl;
+			Visual v("../data/new_airports.txt", "../data/new_routes.txt", "../data/map.png");
+			v.MarkTopX(count);
+			v.Write("pageRank.png");
+			cout<<"A visual representation of top " << count << " airports is generated in your build folder named pageRank.png" << endl;
 		}else if(a == 0){
 			cout<<"Exiting..."<<endl;
 			return 0;

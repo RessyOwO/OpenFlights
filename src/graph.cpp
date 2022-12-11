@@ -303,3 +303,10 @@ void Graph::clearDistance(){
     for(Node* it : airport_nodes_)
         it->distance = 100000;
 }
+
+// double Graph::getNodeLatitude(Node* ap) {
+//     return ap->latitude;
+// }
+// double Graph::getNodeLongitude(Node *ap) {
+//     return ap->longitude;
+// }

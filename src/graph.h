@@ -21,7 +21,7 @@ private:
     vector<vector<int>> adjacency_matrix_;
     void insertAllVertices(unordered_map<string,pair<double, double>> airports);
     void insertAllEdges(map<pair<string,string>,double> route);
-    Node* getNode(string airportName); 
+    
     map<Node*, Node*> bfsHelper(Node* source);
 
     Node * graphFind(vector<Node*> airport_node, string dest);
@@ -39,4 +39,7 @@ public:
     vector<string> top_airports(int count);
     pair<vector<Node*>,double> dijFind(string start_airport,string dest_airport);
     vector<Node*> getAirportNode(); // for testing
+    Node* getNode(string airportName); 
+    // double getNodeLatitude(Node* ap);
+    // double getNodeLongitude(Node *ap);
 };
